@@ -1,0 +1,40 @@
+from PIL import Image
+import numpy as np
+
+obraz = Image.open("inicjaly.bmp")
+obraz.show()
+print("informacje o obrazie")
+print("tryb: ", obraz.mode)
+print("format: ", obraz.format)
+print("rozmiar:", obraz.size)
+
+obraz_dane = np.asarray(obraz)
+dane_int = obraz_dane * 1
+t2_text = open('inicjaly.txt', 'w')
+for rows in dane_int:
+    for item in rows:
+        t2_text.write(str(item) + ' ')
+    t2_text.write('\n')
+
+t2_text.close()
+
+print("typ danych: ", obraz_dane.dtype)
+print("rozmiar tablicy:", obraz_dane.shape)
+print("liczba elementow:", obraz_dane.size)
+print("wymiar tablicy:", obraz_dane.ndim)
+print("rozmiar wyrazu tablicy:", obraz_dane.itemsize)
+
+dowolny_pixel = dane_int[10][10]
+
+#pixel1 = dane_int[50][30]
+#pixel2 = dane_int[90][40]
+#pixel3 = dane_int[99][0]
+#print("p1: ", pixel1)
+#print("p2: ", pixel2)
+#print("p3: ", pixel3)
+inicjaly_b = np.loadtxt("inicjaly.txt", dtype=np.bool_)
+porownanie_b = inicjaly_b == obraz_dane
+print("czy tablice b są rowne? ", porownanie_b)
+inicjaly_i = np.loadtxt("inicjaly.txt", dtype=np.int_)
+porownanie_i = inicjaly_i == obraz_dane
+print("czy tablice i są równe? ", porownanie_i)
